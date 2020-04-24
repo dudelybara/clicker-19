@@ -1,7 +1,42 @@
 //initial number of cookies    
-var num = 0;
+var score = 0;
 
 var cookie = document.getElementById("cookie");
+
+var levels = [
+    {
+        title: "Average Joe",
+        increment: 1,
+        cookie_img: "https://media.giphy.com/media/YSkoyiXAkTS6hV7WsN/giphy.gif"
+    },
+    {
+        title: "Hand washer",
+        increment: 10,
+        cookie_img: "https://media.giphy.com/media/iiQONm5DevaN7zCWLy/giphy.gif"
+    },
+    {
+        title: "Home dweller",
+        increment: 25,
+        cookie_img: "https://media.giphy.com/media/kBfSVXHawPKHoq9NJ7/giphy.gif"
+    },
+    {
+        title: "Sanitizer",
+        increment: 100,
+        cookie_img: "https://media.giphy.com/media/KfrUgKkK2mQ20Ws5lN/giphy.gif"
+    },
+    {
+        title: "Home workout",
+        increment: 250,
+        cookie_img: "https://media.giphy.com/media/fsKLFpQLFJFBJbmhC9/giphy.gif"
+    },
+    {
+        title: "Essential",
+        increment: 5000,
+        cookie_img: "https://media.giphy.com/media/mG2xydBOoOcG80l5GU/giphy.gif"
+    },
+];
+
+var level = 0;
 
 window.onload = function () {
     var name = prompt("Enter username:");
@@ -12,32 +47,32 @@ window.onload = function () {
 }
 
 function cookieClick() { 
-    num += 1;
+    score += levels[level].increment;
 
     var numbers = document.getElementById("numbers");
     
     //upgrade level for printing
     var upgradeLevel = document.getElementById("upgradeLevel");
     
-    numbers.innerHTML = num;      
-    //automatic upgrade to 2x
-    if(num >= 30 ){
-        num += 2;
-        upgradeLevel.innerHTML = "Average Joe";
+    if (score > 1000000) {
+        level = 5;
+    }
+    else if (score > 5000) {
+        level = 4;
+    }
+    else if (score > 1000) {
+        level = 3;
+    }
+    else if (score > 500) {
+        level = 2;
+    }
+    else if (score > 30) {
+        level = 1;
     }
 
-    if(num >= 500) {
-        num += 10;
-        upgradeLevel.innerHTML = "Prepper";
-    }
+    numbers.innerHTML = score;      
 
-    if(num >= 1000) {
-        num += 30;
-        upgradeLevel.innerHTML = "Hoarder";
-    }
+    upgradeLevel.innerHTML = levels[level].title;
+    document.getElementById("pic").src = levels[level].cookie_img;
 
-    if(num >= 100000) {
-        num += 1000;
-        upgradeLevel.innerHTML = "SuperHoarder";
-    }
 }
